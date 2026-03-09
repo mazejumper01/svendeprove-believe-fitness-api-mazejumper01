@@ -3,7 +3,7 @@ var { hashSync } = require("bcryptjs");
 
 async function getSingleUser(req, res, next) {
 	try {
-		let user = await User.findByPk(parseInt(req.params.id), { include: [ Class ] });
+		let user = await User.findByPk(parseInt(req.params.id), { include: [Class] });
 		user.getClasses();
 		res.json(user);
 	} catch (error) {
@@ -16,7 +16,8 @@ async function createSingleUser(req, res, next) {
 	try {
 		let user = await User.create({
 			username: req.fields.username,
-			password: hashSync(req.fields.password, 15)
+			password: hashSync(req.fields.password, 15),
+			role: "default"
 		});
 		res.json(user);
 	} catch (error) {
