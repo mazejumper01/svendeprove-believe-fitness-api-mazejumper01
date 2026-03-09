@@ -1,4 +1,4 @@
-const { News } = require("../models/models");
+const { News, Asset } = require("../models/models");
 
 async function createNews(req, res) {
 	try {
@@ -16,7 +16,7 @@ async function createNews(req, res) {
 
 async function getallNews(req, res) {
 	try {
-		const news = await News.findAll();
+		const news = await News.findAll({ include: [Asset] });
 		res.json(news);
 	} catch (error) {
 		console.error(error);
